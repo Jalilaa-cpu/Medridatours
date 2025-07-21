@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Medridatours - Location de Voitures à Essaouira" %}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center" style="background: url('{% static 'images/site_background.png' %}') center center/cover no-repeat;">
+  <div class="relative text-center px-4 max-w-2xl space-y-8 z-10 drop-shadow-2xl">
+    <span class="inline-block bg-white/20 text-white text-base md:text-lg px-4 py-2 rounded-full font-semibold tracking-wide mb-2 shadow-lg">Bienvenue chez Medridatours</span>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Explorez Essaouira à votre rythme</h1>
+    <p class="text-lg md:text-2xl text-blue-100 font-medium">Louez une voiture en toute simplicité et partez à l'aventure sur la côte Atlantique. Service chaleureux, véhicules modernes, réservation instantanée.</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+      <a href="{% url 'fleet:fleet_list' %}" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold text-lg shadow-lg transition">Je découvre →</a>
+      <a href="https://wa.me/212629473725" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full font-semibold flex items-center justify-center text-lg shadow-lg transition">
+        <i class="fab fa-whatsapp mr-2"></i> Réserver
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                {% trans "Pourquoi Choisir Medridatours ?" %}
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                {% trans "Nous offrons le meilleur service de location de voitures à Essaouira avec des avantages exclusifs." %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center p-6 bg-gray-50 rounded-lg">
+                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">{% trans "Support 24/7" %}</h3>
+                <p class="text-gray-600">{% trans "Notre équipe est disponible 24h/24 pour vous assister." %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-gray-50 rounded-lg">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-plane text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">{% trans "Livraison Gratuite" %}</h3>
+                <p class="text-gray-600">{% trans "Livraison gratuite à l'aéroport d'Essaouira." %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-gray-50 rounded-lg">
+                <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-credit-card text-2xl text-yellow-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">{% trans "Aucune Caution" %}</h3>
+                <p class="text-gray-600">{% trans "Pas de caution requise pour la location." %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-gray-50 rounded-lg">
+                <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-alt text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">{% trans "Assurance Complète" %}</h3>
+                <p class="text-gray-600">{% trans "Tous nos véhicules sont entièrement assurés." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Vehicles -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                {% trans "Véhicules en Vedette" %}
+            </h2>
+            <p class="text-xl text-gray-600">
+                {% trans "Découvrez notre sélection de véhicules populaires" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Four static featured cars -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
+                <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
+                    <img src="{% static 'images/dacia_logan.png' %}" alt="Dacia Logan" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-center">Dacia Logan</h3>
+                        <div class="space-y-2 text-sm text-gray-600 mb-6">
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-cog text-blue-500"></i><span class="font-semibold">Transmission:</span><span>Automatique</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-car-side text-purple-500"></i><span class="font-semibold">Type:</span><span>Sedan – Coffre 528 L</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-gas-pump text-green-500"></i><span class="font-semibold">Carburant:</span><span>Essence / Diesel</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-center items-center mb-4"><span class="text-2xl font-bold text-blue-600">30 € / Jour</span></div>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/212629473725?text=Bonjour%2C%20je%20souhaite%20réserver%20la%20Dacia%20Logan" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors"><i class="fab fa-whatsapp mr-1"></i>{% trans "Réserver" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
+                <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
+                    <img src="{% static 'images/dacia-duster.png' %}" alt="Dacia Duster" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-center">Dacia Duster</h3>
+                        <div class="space-y-2 text-sm text-gray-600 mb-6">
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-cog text-blue-500"></i><span class="font-semibold">Transmission:</span><span>Manuelle</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-car-side text-purple-500"></i><span class="font-semibold">Type:</span><span>SUV Compact – Coffre 445 L</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-gas-pump text-green-500"></i><span class="font-semibold">Carburant:</span><span>Diesel / Essence</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-center items-center mb-4"><span class="text-2xl font-bold text-blue-600">40 € / Jour</span></div>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/212629473725?text=Bonjour%2C%20je%20souhaite%20réserver%20la%20Dacia%20Duster" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors"><i class="fab fa-whatsapp mr-1"></i>{% trans "Réserver" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
+                <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
+                    <img src="{% static 'images/hyundai_tukson.png' %}" alt="Hyundai Tucson" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-center">Hyundai Tucson</h3>
+                        <div class="space-y-2 text-sm text-gray-600 mb-6">
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-cog text-blue-500"></i><span class="font-semibold">Transmission:</span><span>Automatique</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-car-side text-purple-500"></i><span class="font-semibold">Type:</span><span>SUV Familial – Coffre 620 L</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-gas-pump text-green-500"></i><span class="font-semibold">Carburant:</span><span>Hybride / Essence</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-center items-center mb-4"><span class="text-2xl font-bold text-blue-600">82 € / Jour</span></div>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/212629473725?text=Bonjour%2C%20je%20souhaite%20réserver%20la%20Hyundai%20Tucson" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors"><i class="fab fa-whatsapp mr-1"></i>{% trans "Réserver" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
+                <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
+                    <img src="{% static 'images/dacia_lodgy.png' %}" alt="Dacia Lodgy" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-center">Dacia Lodgy</h3>
+                        <div class="space-y-2 text-sm text-gray-600 mb-6">
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-cog text-blue-500"></i><span class="font-semibold">Transmission:</span><span>Automatique</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-car-side text-purple-500"></i><span class="font-semibold">Type:</span><span>7 Places – Coffre modulable</span></div>
+                            <div class="flex items-center gap-2 justify-center"><i class="fas fa-gas-pump text-green-500"></i><span class="font-semibold">Carburant:</span><span>Diesel / Essence</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-center items-center mb-4"><span class="text-2xl font-bold text-blue-600">45 € / Jour</span></div>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/212629473725?text=Bonjour%2C%20je%20souhaite%20réserver%20la%20Dacia%20Lodgy" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors"><i class="fab fa-whatsapp mr-1"></i>{% trans "Réserver" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'fleet:fleet_list' %}" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                {% trans "Voir Tous les Véhicules" %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                {% trans "Témoignages de Nos Clients" %}
+            </h2>
+            <p class="text-xl text-gray-600">
+                {% trans "Découvrez ce que nos clients disent de nous" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for testimonial in testimonials %}
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <div class="flex items-center mb-4">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= testimonial.rating %}
+                            <i class="fas fa-star text-yellow-400"></i>
+                        {% else %}
+                            <i class="fas fa-star text-gray-300"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 mb-4 italic">"{{ testimonial.content }}"</p>
+                <div class="flex items-center">
+                    <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-user text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">{{ testimonial.name }}</h4>
+                        <p class="text-sm text-gray-500">{{ testimonial.location }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-comments text-4xl text-gray-400 mb-4"></i>
+                <p class="text-gray-600">{% trans "Aucun témoignage disponible pour le moment." %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-blue-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            {% trans "Prêt à Explorer Essaouira ?" %}
+        </h2>
+        <p class="text-xl mb-8">
+            {% trans "Contactez-nous dès maintenant pour réserver votre véhicule" %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://wa.me/212629473725" target="_blank" class="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-lg font-semibold transition-colors">
+                <i class="fab fa-whatsapp mr-2"></i>
+                {% trans "Réserver via WhatsApp" %}
+            </a>
+            <a href="{% url 'core:contact' %}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                {% trans "Nous Contacter" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

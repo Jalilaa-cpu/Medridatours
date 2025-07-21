@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ vehicle.name }} - Medridatours{% endblock %}
+
+{% block content %}
+<!-- Vehicle Header -->
+<section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Vehicle Image -->
+            <div>
+                {% if vehicle.image %}
+                    <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="w-full h-96 object-cover rounded-lg shadow-lg">
+                {% else %}
+                    <div class="w-full h-96 bg-gray-200 flex items-center justify-center rounded-lg">
+                        <i class="fas fa-car text-8xl text-gray-400"></i>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Vehicle Details -->
+            <div>
+                <div class="flex items-center gap-4 mb-4">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{{ vehicle.name }}</h1>
+                    {% if vehicle.featured %}
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            {% trans "Vedette" %}
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <div class="text-3xl font-bold text-blue-600 mb-6">
+                    {{ vehicle.daily_price }} MAD
+                    <span class="text-lg text-gray-500 font-normal">{% trans "par jour" %}</span>
+                </div>
+                
+                <!-- Vehicle Specifications -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4">{% trans "Spécifications" %}</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-cog text-blue-600 mr-3"></i>
+                            <div>
+                                <span class="text-sm text-gray-500">{% trans "Transmission" %}</span>
+                                <p class="font-semibold">{{ vehicle.get_transmission_display_french }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-car-side text-purple-600 mr-3"></i>
+                            <div>
+                                <span class="text-sm text-gray-500">{% trans "Type" %}</span>
+                                <p class="font-semibold">{{ vehicle.type }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-gas-pump text-blue-600 mr-3"></i>
+                            <div>
+                                <span class="text-sm text-gray-500">{% trans "Carburant" %}</span>
+                                <p class="font-semibold">{{ vehicle.get_fuel_display_french }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-snowflake text-blue-600 mr-3"></i>
+                            <div>
+                                <span class="text-sm text-gray-500">{% trans "Climatisation" %}</span>
+                                <p class="font-semibold">
+                                    {% if vehicle.air_conditioning %}
+                                        {% trans "Oui" %}
+                                    {% else %}
+                                        {% trans "Non" %}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar text-blue-600 mr-3"></i>
+                            <div>
+                                <span class="text-sm text-gray-500">{% trans "Année" %}</span>
+                                <p class="font-semibold">{{ vehicle.year }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Actions -->
+                <div class="space-y-4">
+                    <a href="{{ vehicle.whatsapp_link }}" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg font-semibold text-lg flex items-center justify-center transition-colors">
+                        <i class="fab fa-whatsapp mr-3 text-xl"></i>
+                        {% trans "Réserver via WhatsApp" %}
+                    </a>
+                    
+                    <div class="flex gap-4">
+                        <a href="tel:+212629473725" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center transition-colors">
+                            <i class="fas fa-phone mr-2"></i>
+                            {% trans "Appeler" %}
+                        </a>
+                        <a href="{% url 'fleet:fleet_list' %}" class="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-3 rounded-lg font-semibold flex items-center justify-center transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            {% trans "Retour" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                {% trans "Pourquoi Choisir Ce Véhicule ?" %}
+            </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{% trans "Support 24/7" %}</h3>
+                <p class="text-gray-600 text-sm">{% trans "Assistance disponible à tout moment" %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-plane text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{% trans "Livraison Gratuite" %}</h3>
+                <p class="text-gray-600 text-sm">{% trans "À l'aéroport d'Essaouira" %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-credit-card text-2xl text-yellow-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{% trans "Aucune Caution" %}</h3>
+                <p class="text-gray-600 text-sm">{% trans "Pas de blocage de carte" %}</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-alt text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{% trans "Assurance Complète" %}</h3>
+                <p class="text-gray-600 text-sm">{% trans "Véhicule entièrement assuré" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Vehicles -->
+{% if related_vehicles %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                {% trans "Véhicules Similaires" %}
+            </h2>
+            <p class="text-xl text-gray-600">
+                {% trans "Découvrez d'autres véhicules qui pourraient vous intéresser" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for related_vehicle in related_vehicles %}
+            <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    {% if related_vehicle.image %}
+                        <img src="{{ related_vehicle.image.url }}" alt="{{ related_vehicle.name }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-car text-4xl text-gray-400"></i>
+                        </div>
+                    {% endif %}
+                    {% if related_vehicle.featured %}
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">
+                                {% trans "Vedette" %}
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ related_vehicle.name }}</h3>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-cog mr-2"></i>
+                            <span>{{ related_vehicle.get_transmission_display_french }}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-gas-pump mr-2"></i>
+                            <span>{{ related_vehicle.get_fuel_display_french }}</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xl font-bold text-blue-600">{{ related_vehicle.daily_price }} MAD</span>
+                        <span class="text-sm text-gray-500">{% trans "par jour" %}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="{% url 'fleet:vehicle_detail' related_vehicle.id %}" class="flex-1 bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition-colors">
+                            {% trans "Voir" %}
+                        </a>
+                        <a href="{{ related_vehicle.whatsapp_link }}" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors">
+                            <i class="fab fa-whatsapp mr-1"></i>
+                            {% trans "Réserver" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="bg-blue-600 text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">
+            {% trans "Prêt à Réserver Ce Véhicule ?" %}
+        </h2>
+        <p class="text-xl mb-8">
+            {% trans "Contactez-nous maintenant pour finaliser votre réservation" %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ vehicle.whatsapp_link }}" target="_blank" class="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-lg font-semibold transition-colors">
+                <i class="fab fa-whatsapp mr-2"></i>
+                {% trans "Réserver via WhatsApp" %}
+            </a>
+            <a href="tel:+212629473725" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <i class="fas fa-phone mr-2"></i>
+                {% trans "Appeler Maintenant" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

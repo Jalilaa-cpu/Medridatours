@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Notre Flotte" %} - Medridatours{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<section class="bg-blue-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                {% trans "Notre Flotte" %}
+            </h1>
+            <p class="text-xl">
+                {% trans "Découvrez notre sélection de véhicules modernes et fiables" %}
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Vehicle Grid (Static Images) -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for car in cars %}
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
+                <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
+                    <img src="{% static 'images/' %}{{ car.img }}" alt="{{ car.name }}" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-center">{{ car.name }}</h3>
+                        <div class="space-y-2 text-sm text-gray-600 mb-6">
+                            <div class="flex items-center gap-2 justify-center">
+                                <i class="fas fa-cog text-blue-500"></i>
+                                <span class="font-semibold">Transmission:</span>
+                                <span>{{ car.transmission }}</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center">
+                                <i class="fas fa-car-side text-purple-500"></i>
+                                <span class="font-semibold">Type:</span>
+                                <span>{{ car.type }}</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center">
+                                <i class="fas fa-gas-pump text-green-500"></i>
+                                <span class="font-semibold">Carburant:</span>
+                                <span>{{ car.fuel }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-center items-center mb-4">
+                            <span class="text-2xl font-bold text-blue-600">{{ car.price }}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/212629473725?text=Bonjour%2C%20je%20souhaite%20réserver%20la%20{{ car.name|urlencode }}" target="_blank" class="flex-1 bg-green-500 text-white text-center py-2 rounded hover:bg-green-600 transition-colors">
+                                <i class="fab fa-whatsapp mr-1"></i>
+                                {% trans "Réserver" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
