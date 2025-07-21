@@ -23,7 +23,7 @@ A Django-based car rental website for Medridatours, a Moroccan car rental agency
 - Language switcher in navigation
 
 ### 📱 WhatsApp Integration
-Direct booking flow to WhatsApp number: +212629473725
+Direct booking flow to WhatsApp number.
 
 - Touch-friendly interface
 
@@ -235,19 +235,7 @@ python manage.py runserver 0.0.0.0:$PORT
 
 This project is licensed under the MIT License.
 
-## Support
 
-For support, contact:
-- WhatsApp: +212698927640
-- Email: [your-email@example.com]
-
-## Screenshots
-
-[Add screenshots of the website here]
-
-## Todo
-
-- [ ] Add blog functionality
 - [ ] Implement sitemap.xml
 - [ ] Add robots.txt
 - [ ] Implement caching
