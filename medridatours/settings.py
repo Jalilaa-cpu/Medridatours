@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'fleet',
     'django_cleanup.apps.CleanupConfig',
+    'django_distill',
 ]
 
 MIDDLEWARE = [

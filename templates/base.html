@@ -18,6 +18,17 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{% static 'images/logo.jpg' %}{% endblock %}">
     
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" sizes="16x16" href="{% static 'images/LOGO NOIR .jpg' %}" type="image/jpeg">
+    <link rel="icon" sizes="32x32" href="{% static 'images/LOGO NOIR .jpg' %}" type="image/jpeg">
+    <link rel="apple-touch-icon" href="{% static 'images/LOGO NOIR .jpg' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/LOGO NOIR .jpg' %}">
+    
+    <!-- Preload important images -->
+    <link rel="preload" href="{% static 'images/LOGO NOIR .jpg' %}" as="image">
+    
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -39,8 +50,8 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="{% url 'core:home' %}" class="text-2xl font-bold text-blue-600">
-                        Medridatours
+                    <a href="{% url 'core:home' %}" class="flex items-center py-2">
+                        <img src="{% static 'images/LOGO NOIR .jpg' %}" alt="Medridatours" class="h-12 w-auto max-w-none">
                     </a>
                 </div>
                 
@@ -142,7 +153,7 @@
                     <ul class="space-y-2 text-gray-300">
                         <li><i class="fas fa-check mr-2 text-green-400"></i>{% trans "Support 24/7" %}</li>
                         <li><i class="fas fa-check mr-2 text-green-400"></i>{% trans "Livraison gratuite à l'aéroport" %}</li>
-                        <li><i class="fas fa-check mr-2 text-green-400"></i>{% trans "Aucune caution" %}</li>
+                        <li><i class="fas fa-check mr-2 text-green-400"></i>{% trans "Avec caution" %}</li>
                         <li><i class="fas fa-check mr-2 text-green-400"></i>{% trans "Assurance complète" %}</li>
                     </ul>
                 </div>

@@ -22,18 +22,18 @@
 <!-- About Content -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="max-w-4xl mx-auto text-center">
             <div>
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">
                     {% trans "Notre Histoire" %}
                 </h2>
-                <p class="text-gray-600 mb-6">
+                <p class="text-lg text-gray-600 mb-6">
                     {% trans "Medridatours est née de la passion pour Essaouira et du désir de partager la beauté de cette ville historique avec les visiteurs du monde entier. Depuis notre création, nous nous efforçons de fournir un service de location de voitures exceptionnel qui permet à nos clients d'explorer librement les merveilles d'Essaouira et de ses environs." %}
                 </p>
-                <p class="text-gray-600 mb-6">
+                <p class="text-lg text-gray-600 mb-8">
                     {% trans "Notre équipe locale connaît parfaitement la région et est toujours prête à vous donner les meilleurs conseils pour votre séjour. Nous croyons que la liberté de mouvement est essentielle pour découvrir authentiquement notre belle ville côtière." %}
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{% url 'fleet:fleet_list' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors text-center">
                         {% trans "Voir Notre Flotte" %}
                     </a>
@@ -41,11 +41,6 @@
                         {% trans "Nous Contacter" %}
                     </a>
                 </div>
-            </div>
-            <div class="bg-gray-200 rounded-lg p-8 text-center">
-                <i class="fas fa-map-marked-alt text-6xl text-blue-600 mb-4"></i>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">{% trans "Essaouira" %}</h3>
-                <p class="text-gray-600">{% trans "La perle de l'Atlantique" %}</p>
             </div>
         </div>
     </div>
@@ -139,7 +134,7 @@
                     <i class="fas fa-credit-card text-yellow-600"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold mb-2">{% trans "Aucune Caution" %}</h3>
+                    <h3 class="text-xl font-semibold mb-2">{% trans "Avec Caution" %}</h3>
                     <p class="text-gray-600">
                         {% trans "Pas de caution à bloquer sur votre carte de crédit. Payez simplement le montant de la location." %}
                     </p>
