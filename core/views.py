@@ -33,3 +33,12 @@ def about(request):
     }
     
     return render(request, 'core/about.html', context)
+
+
+def transport(request):
+    """Transport touristique page view"""
+    context = {
+        'whatsapp_number': settings.WHATSAPP_NUMBER,
+    }
+    
+    return render(request, 'core/transport.html', context)

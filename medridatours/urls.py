@@ -47,4 +47,5 @@ urlpatterns += [
     distill_path('fleet/', fleet_views.fleet_list, name='fleet', distill_func=lambda: None),
     distill_path('about/', core_views.about, name='about', distill_func=lambda: None),
     distill_path('contact/', core_views.contact, name='contact', distill_func=lambda: None),
+    distill_path('transport-touristique/', core_views.transport, name='transport', distill_func=lambda: None),
 ]
