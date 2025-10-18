@@ -2,7 +2,9 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "Notre Flotte" %} - Medridatours{% endblock %}
+{% block title %}{% trans "Location de Voiture Essaouira - Flotte Medridatours | Véhicules Climatisés" %}{% endblock %}
+
+{% block description %}{% trans "Découvrez notre flotte de location de voiture à Essaouira ✓ 11 véhicules climatisés ✓ Dacia, Hyundai, Kia, Fiat ✓ De 30€ à 90€/jour ✓ Réservation WhatsApp immédiate" %}{% endblock %}
 
 {% block content %}
 <!-- Header -->
@@ -10,11 +12,36 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                {% trans "Notre Flotte" %}
+                {% trans "Location de Voiture Essaouira - Notre Flotte" %}
             </h1>
             <p class="text-xl">
-                {% trans "Découvrez notre sélection de véhicules modernes et fiables" %}
+                {% trans "11 véhicules climatisés disponibles pour location à Essaouira. Agence Medridatours - Service avec caution, tarifs transparents." %}
             </p>
+        </div>
+    </div>
+</section>
+
+<!-- SEO Content Section -->
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                {% trans "Pourquoi Choisir la Location de Voiture Medridatours à Essaouira ?" %}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600">{% trans "Véhicules Récents" %}</h3>
+                    <p class="text-gray-600">{% trans "Toute notre flotte est composée de véhicules récents avec climatisation automatique." %}</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-green-600">{% trans "Service Local" %}</h3>
+                    <p class="text-gray-600">{% trans "Agence locale basée à Essaouira, connaissance parfaite de la région." %}</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-purple-600">{% trans "Réservation Simple" %}</h3>
+                    <p class="text-gray-600">{% trans "Réservation WhatsApp en 2 minutes. Livraison aéroport gratuite." %}</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -22,11 +49,14 @@
 <!-- Vehicle Grid (Static Images) -->
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+            {% trans "Nos Véhicules de Location à Essaouira" %}
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {% for car in cars %}
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
                 <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
-                    <img src="{% static 'images/' %}{{ car.img }}" alt="{{ car.name }}" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <img src="{% static 'images/' %}{{ car.img }}" alt="Location {{ car.name }} Essaouira - Medridatours {{ car.price }}/jour" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
                 </div>
                 <div class="p-6 flex-1 flex flex-col justify-between">
                     <div>

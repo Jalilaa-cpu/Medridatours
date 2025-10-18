@@ -2,15 +2,17 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "Medridatours - Location de Voitures à Essaouira" %}{% endblock %}
+{% block title %}{% trans "Location de Voiture Essaouira | Agence Medridatours Maroc - Car Rental" %}{% endblock %}
+
+{% block description %}{% trans "🚗 Location de voiture Essaouira avec Medridatours ✓ Agence locale de confiance ✓ Véhicules neufs climatisés ✓ Livraison aéroport gratuite ✓ Réservation WhatsApp 24h/24 ✓ Avec caution" %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="relative h-screen flex items-center justify-center" style="background: url('{% static 'images/site_background.png' %}') center center/cover no-repeat;">
   <div class="relative text-center px-4 max-w-2xl space-y-8 z-10 drop-shadow-2xl">
     <span class="inline-block bg-white/20 text-white text-base md:text-lg px-4 py-2 rounded-full font-semibold tracking-wide mb-2 shadow-lg">Bienvenue chez Medridatours</span>
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Explorez Essaouira à votre rythme</h1>
-    <p class="text-lg md:text-2xl text-blue-100 font-medium">Louez une voiture en toute simplicité et partez à l'aventure sur la côte Atlantique. Service chaleureux, véhicules modernes, réservation instantanée.</p>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Location de Voiture Essaouira</h1>
+    <p class="text-lg md:text-2xl text-blue-100 font-medium">Agence Medridatours - Votre spécialiste location de voiture à Essaouira, Maroc. Véhicules modernes climatisés, livraison aéroport gratuite, service avec caution.</p>
     <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
       <a href="{% url 'fleet:fleet_list' %}" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold text-lg shadow-lg transition">Je découvre →</a>
       <a href="https://wa.me/212629473725" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full font-semibold flex items-center justify-center text-lg shadow-lg transition">
@@ -25,10 +27,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                {% trans "Pourquoi Choisir Medridatours ?" %}
+                {% trans "Pourquoi Choisir Medridatours pour Votre Location de Voiture à Essaouira ?" %}
             </h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                {% trans "Nous offrons le meilleur service de location de voitures à Essaouira avec des avantages exclusifs." %}
+                {% trans "Agence locale de location de voiture Essaouira. Service professionnel, véhicules entretenus, tarifs transparents avec caution." %}
             </p>
         </div>
         
@@ -73,10 +75,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                {% trans "Véhicules en Vedette" %}
+                {% trans "Notre Flotte de Location de Voiture Essaouira" %}
             </h2>
             <p class="text-xl text-gray-600">
-                {% trans "Découvrez notre sélection de véhicules populaires" %}
+                {% trans "Véhicules modernes et entretenus disponibles pour location à Essaouira. Climatisation, assurance complète incluse." %}
             </p>
         </div>
         
@@ -84,7 +86,7 @@
             <!-- Four static featured cars -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
                 <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
-                    <img src="{% static 'images/dacia_logan.png' %}" alt="Dacia Logan" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <img src="{% static 'images/dacia_logan.png' %}" alt="Location Dacia Logan Essaouira - Medridatours sedan 30€/jour" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
                     <div class="absolute top-4 right-4">
                         <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
                     </div>
@@ -109,7 +111,7 @@
 
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
                 <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
-                    <img src="{% static 'images/dacia-duster.png' %}" alt="Dacia Duster" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <img src="{% static 'images/dacia-duster.png' %}" alt="Location Dacia Duster Essaouira - Medridatours SUV 40€/jour" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
                     <div class="absolute top-4 right-4">
                         <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
                     </div>
@@ -134,7 +136,7 @@
 
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
                 <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
-                    <img src="{% static 'images/hyundai_tukson.png' %}" alt="Hyundai Tucson" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <img src="{% static 'images/hyundai_tukson.png' %}" alt="Location Hyundai Tucson Essaouira - Medridatours SUV premium 82€/jour" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
                     <div class="absolute top-4 right-4">
                         <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
                     </div>
@@ -159,7 +161,7 @@
 
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full min-h-[420px]">
                 <div class="relative flex justify-center items-center bg-gray-100" style="padding: 32px 0 24px 0; min-height: 180px;">
-                    <img src="{% static 'images/dacia_lodgy.png' %}" alt="Dacia Lodgy" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
+                    <img src="{% static 'images/dacia_lodgy.png' %}" alt="Location Dacia Lodgy 7 places Essaouira - Medridatours familial 45€/jour" class="w-11/12 h-44 object-contain rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105 bg-white">
                     <div class="absolute top-4 right-4">
                         <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">{% trans "Vedette" %}</span>
                     </div>

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'fleet',
-    'django_cleanup.apps.CleanupConfig',
     'django_distill',
 ]
 
