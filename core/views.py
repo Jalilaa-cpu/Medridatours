@@ -1,16 +1,30 @@
-from django.shortcuts import render
-from fleet.models import Vehicle, Testimonial
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.conf import settings
+from .models import Testimonial
+from .forms import TestimonialForm
 
 
 def home(request):
-    """Homepage view with featured vehicles and testimonials"""
-    featured_vehicles = Vehicle.objects.filter(featured=True, available=True)[:4]
-    testimonials = Testimonial.objects.filter(active=True)[:3]
+    """Homepage view with testimonials and testimonial form"""
+    testimonials = Testimonial.objects.filter(active=True)[:6]
+    form = TestimonialForm()
+    
+    # Handle testimonial form submission
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.active = True  # Auto-activate testimonials
+            testimonial.save()
+            messages.success(request, 'Merci pour votre témoignage ! Il est maintenant publié sur notre site.')
+            return redirect('core:home')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs dans le formulaire.')
     
     context = {
-        'featured_vehicles': featured_vehicles,
         'testimonials': testimonials,
+        'testimonial_form': form,
         'whatsapp_number': settings.WHATSAPP_NUMBER,
     }
     
@@ -42,3 +56,29 @@ def transport(request):
     }
     
     return render(request, 'core/transport.html', context)
+
+
+def testimonials(request):
+    """Testimonials page view with form"""
+    testimonials = Testimonial.objects.filter(active=True).order_by('-created_at')
+    form = TestimonialForm()
+    
+    # Handle testimonial form submission
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.active = False  # Require admin approval
+            testimonial.save()
+            messages.success(request, 'Merci pour votre témoignage ! Il sera publié après validation.')
+            return redirect('core:testimonials')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs dans le formulaire.')
+    
+    context = {
+        'testimonials': testimonials,
+        'testimonial_form': form,
+        'whatsapp_number': settings.WHATSAPP_NUMBER,
+    }
+    
+    return render(request, 'core/testimonials.html', context)

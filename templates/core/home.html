@@ -247,50 +247,252 @@
     </div>
 </section>
 
-<!-- Testimonials -->
-<section class="py-16 bg-white">
+<!-- Testimonials - Compact Design -->
+<section id="testimonials-section" class="py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                {% trans "Témoignages de Nos Clients" %}
-            </h2>
-            <p class="text-xl text-gray-600">
-                {% trans "Découvrez ce que nos clients disent de nous" %}
-            </p>
+        <!-- Section Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                    {% trans "Avis Clients" %}
+                </h2>
+                <p class="text-gray-600">
+                    {% trans "Ce que nos clients pensent de nos services" %}
+                </p>
+            </div>
+            
+            <!-- Add Review Button -->
+            <button onclick="toggleReviewForm()" id="toggle-review-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors flex items-center">
+                <i class="fas fa-plus mr-2"></i>
+                {% trans "Laisser un avis" %}
+            </button>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for testimonial in testimonials %}
-            <div class="bg-gray-50 p-6 rounded-lg">
-                <div class="flex items-center mb-4">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= testimonial.rating %}
-                            <i class="fas fa-star text-yellow-400"></i>
-                        {% else %}
-                            <i class="fas fa-star text-gray-300"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <p class="text-gray-600 mb-4 italic">"{{ testimonial.content }}"</p>
-                <div class="flex items-center">
-                    <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-user text-blue-600"></i>
+        <!-- Testimonials Display -->
+        {% if testimonials %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {% for testimonial in testimonials|slice:":3" %}
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <!-- Rating and Date -->
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= testimonial.rating %}
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            {% else %}
+                                <i class="fas fa-star text-gray-300 text-sm"></i>
+                            {% endif %}
+                        {% endfor %}
                     </div>
+                    <span class="text-xs text-gray-500">{{ testimonial.created_at|date:"M Y" }}</span>
+                </div>
+                
+                <!-- Review Content -->
+                <p class="text-gray-700 text-sm mb-3 leading-relaxed">
+                    {% if testimonial.content|length > 120 %}
+                        "{{ testimonial.content|slice:":120" }}..."
+                    {% else %}
+                        "{{ testimonial.content }}"
+                    {% endif %}
+                </p>
+                
+                <!-- Customer Info -->
+                <div class="flex items-center justify-between text-xs">
                     <div>
-                        <h4 class="font-semibold">{{ testimonial.name }}</h4>
-                        <p class="text-sm text-gray-500">{{ testimonial.location }}</p>
+                        <span class="font-medium text-gray-800">{{ testimonial.name }}</span>
+                        {% if testimonial.location %}
+                        <span class="text-gray-500"> • {{ testimonial.location }}</span>
+                        {% endif %}
                     </div>
+                    {% if testimonial.vehicle_rented %}
+                    <span class="text-blue-600 font-medium">{{ testimonial.vehicle_rented }}</span>
+                    {% endif %}
                 </div>
-            </div>
-            {% empty %}
-            <div class="col-span-full text-center py-12">
-                <i class="fas fa-comments text-4xl text-gray-400 mb-4"></i>
-                <p class="text-gray-600">{% trans "Aucun témoignage disponible pour le moment." %}</p>
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="text-center py-8 bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <i class="fas fa-comments text-3xl text-gray-300 mb-3"></i>
+            <h3 class="text-lg font-medium text-gray-600 mb-1">{% trans "Aucun avis pour le moment" %}</h3>
+            <p class="text-gray-500 text-sm">{% trans "Partagez votre expérience avec nous !" %}</p>
+        </div>
+        {% endif %}
+        
+        <!-- Add Review Form - Hidden by Default -->
+        <div id="review-form" class="hidden bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-800">
+                    {% trans "Partager Votre Expérience" %}
+                </h3>
+                <button onclick="toggleReviewForm()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-4 p-3 rounded-lg {% if message.tags == 'success' %}bg-green-100 border border-green-200 text-green-800{% elif message.tags == 'error' %}bg-red-100 border border-red-200 text-red-800{% endif %}">
+                        <div class="flex items-center text-sm">
+                            {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle mr-2"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                            {% endif %}
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Name Field -->
+                    <div>
+                        <label for="{{ testimonial_form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            {{ testimonial_form.name.label }} <span class="text-red-500">*</span>
+                        </label>
+                        {{ testimonial_form.name }}
+                        {% if testimonial_form.name.errors %}
+                            <p class="mt-1 text-xs text-red-600">{{ testimonial_form.name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div>
+                        <label for="{{ testimonial_form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            {{ testimonial_form.email.label }}
+                        </label>
+                        {{ testimonial_form.email }}
+                        {% if testimonial_form.email.errors %}
+                            <p class="mt-1 text-xs text-red-600">{{ testimonial_form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Location Field -->
+                    <div>
+                        <label for="{{ testimonial_form.location.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            {{ testimonial_form.location.label }}
+                        </label>
+                        {{ testimonial_form.location }}
+                        {% if testimonial_form.location.errors %}
+                            <p class="mt-1 text-xs text-red-600">{{ testimonial_form.location.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Vehicle Field -->
+                    <div>
+                        <label for="{{ testimonial_form.vehicle_rented.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            {{ testimonial_form.vehicle_rented.label }}
+                        </label>
+                        {{ testimonial_form.vehicle_rented }}
+                        {% if testimonial_form.vehicle_rented.errors %}
+                            <p class="mt-1 text-xs text-red-600">{{ testimonial_form.vehicle_rented.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Rating Field -->
+                <div>
+                    <label for="{{ testimonial_form.rating.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        {{ testimonial_form.rating.label }} <span class="text-red-500">*</span>
+                    </label>
+                    {{ testimonial_form.rating }}
+                    {% if testimonial_form.rating.errors %}
+                        <p class="mt-1 text-xs text-red-600">{{ testimonial_form.rating.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Content Field -->
+                <div>
+                    <label for="{{ testimonial_form.content.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        {{ testimonial_form.content.label }} <span class="text-red-500">*</span>
+                    </label>
+                    {{ testimonial_form.content }}
+                    {% if testimonial_form.content.errors %}
+                        <p class="mt-1 text-xs text-red-600">{{ testimonial_form.content.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="flex items-center justify-between pt-4">
+                    <p class="text-xs text-gray-500">
+                        {% trans "* Champs obligatoires. Publication immédiate." %}
+                    </p>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium text-sm transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        {% trans "Publier" %}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
+
+<!-- JavaScript for smooth scrolling and form toggle -->
+<script>
+// Toggle review form visibility
+function toggleReviewForm() {
+    const form = document.getElementById('review-form');
+    const btn = document.getElementById('toggle-review-btn');
+    
+    if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        btn.innerHTML = '<i class="fas fa-times mr-2"></i>{% trans "Fermer" %}';
+        // Scroll to form
+        setTimeout(() => {
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    } else {
+        form.classList.add('hidden');
+        btn.innerHTML = '<i class="fas fa-plus mr-2"></i>{% trans "Laisser un avis" %}';
+    }
+}
+
+// Handle page load behavior
+document.addEventListener('DOMContentLoaded', function() {
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                // Show form and scroll to testimonials section after successful submission
+                const form = document.getElementById('review-form');
+                const btn = document.getElementById('toggle-review-btn');
+                
+                // Auto-close form after success
+                setTimeout(() => {
+                    if (!form.classList.contains('hidden')) {
+                        form.classList.add('hidden');
+                        btn.innerHTML = '<i class="fas fa-plus mr-2"></i>{% trans "Laisser un avis" %}';
+                    }
+                    
+                    // Scroll to testimonials section
+                    document.querySelector('#testimonials-section').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 500);
+            {% elif message.tags == 'error' %}
+                // Keep form open if there are errors
+                const form = document.getElementById('review-form');
+                const btn = document.getElementById('toggle-review-btn');
+                
+                form.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-times mr-2"></i>{% trans "Fermer" %}';
+                
+                // Scroll to form
+                setTimeout(() => {
+                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+});
+</script>
 
 <!-- CTA Section -->
 <section class="bg-blue-600 text-white py-16">
