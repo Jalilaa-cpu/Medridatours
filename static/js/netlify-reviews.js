@@ -6,8 +6,9 @@ class LocalReviewsManager {
     }
 
     init() {
-        this.interceptFormSubmission();
-        this.displayStoredReviews();
+        // Disabled automatic review display to avoid conflicts with Django testimonials
+        // this.interceptFormSubmission();
+        // this.displayStoredReviews();
     }
 
     // Intercept form submission to store review locally

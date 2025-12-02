@@ -6,8 +6,9 @@ class LocalReviewsManager {
     }
 
     init() {
-        this.interceptFormSubmission();
-        this.displayStoredReviews();
+        // Disabled automatic review display to avoid conflicts with Django testimonials
+        // this.interceptFormSubmission();
+        // this.displayStoredReviews();
     }
 
     // Intercept form submission to store review locally
@@ -24,9 +25,6 @@ class LocalReviewsManager {
 
     // Handle form submission
     handleFormSubmission(event) {
-        // Prevent default to avoid 404 redirect
-        event.preventDefault();
-        
         const form = event.target;
         const formData = new FormData(form);
         
@@ -50,22 +48,7 @@ class LocalReviewsManager {
         // Store the review
         this.storeReview(review);
         
-        // Show success message and update display immediately
-        this.showSuccessMessage();
-        setTimeout(() => {
-            this.displayStoredReviews();
-        }, 100);
-        
-        // Submit to Netlify manually to avoid redirect
-        fetch('/', {
-            method: 'POST',
-            body: formData
-        }).then(() => {
-            console.log('Form submitted to Netlify successfully');
-            form.reset(); // Reset the form
-        }).catch(error => {
-            console.error('Error submitting to Netlify:', error);
-        });
+        // Add small delay to show the review after form submission
         setTimeout(() => {
             this.displayStoredReviews();
             this.showSuccessMessage();
