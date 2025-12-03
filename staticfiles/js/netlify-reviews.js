@@ -6,15 +6,14 @@ class LocalReviewsManager {
     }
 
     init() {
-        // Disabled automatic review display to avoid conflicts with Django testimonials
-        // this.interceptFormSubmission();
-        // this.displayStoredReviews();
+        this.interceptFormSubmission();
+        this.displayStoredReviews();
     }
 
     // Intercept form submission to store review locally
     interceptFormSubmission() {
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.querySelector('form[name="comments-home"]');
+            const form = document.querySelector('form[name="testimonials"]');
             if (!form) return;
 
             form.addEventListener('submit', (e) => {
@@ -28,20 +27,21 @@ class LocalReviewsManager {
         const form = event.target;
         const formData = new FormData(form);
         
-        // Extract form data
+        // Extract form data for testimonials
         const review = {
             id: Date.now() + Math.random().toString(36).substr(2, 9),
             name: formData.get('name') || 'Client anonyme',
             email: formData.get('email') || '',
-            subject: formData.get('subject') || '',
-            message: formData.get('message') || '',
+            location: formData.get('location') || '',
+            vehicle_rented: formData.get('vehicle_rented') || '',
+            rating: parseInt(formData.get('rating')) || 5,
+            content: formData.get('content') || '',
             date: new Date().toISOString(),
-            rating: 5, // Default rating
             approved: true // Auto-approve for local storage
         };
 
         // Validate required fields
-        if (!review.name.trim() || !review.message.trim()) {
+        if (!review.name.trim() || !review.content.trim() || !review.rating) {
             return; // Let the form validation handle this
         }
 
@@ -52,6 +52,7 @@ class LocalReviewsManager {
         setTimeout(() => {
             this.displayStoredReviews();
             this.showSuccessMessage();
+            this.closeReviewForm();
         }, 1000);
     }
 
@@ -159,8 +160,8 @@ class LocalReviewsManager {
     createReviewHTML(review) {
         const stars = this.generateStars(review.rating);
         const timeAgo = this.timeAgo(new Date(review.date));
-        const truncatedMessage = review.message.length > 120 ? 
-            review.message.substring(0, 120) + '...' : review.message;
+        const truncatedContent = review.content.length > 120 ? 
+            review.content.substring(0, 120) + '...' : review.content;
 
         return `
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
@@ -174,19 +175,16 @@ class LocalReviewsManager {
                 
                 <!-- Review Content -->
                 <p class="text-gray-700 text-sm mb-3 leading-relaxed">
-                    "${truncatedMessage}"
+                    "${truncatedContent}"
                 </p>
                 
                 <!-- Customer Info -->
                 <div class="flex items-center justify-between text-xs">
-                    <div class="flex items-center text-gray-600">
-                        <i class="fas fa-user-circle mr-1"></i>
-                        <span class="font-medium">${review.name}</span>
-                        ${review.subject ? `<span class="ml-2 text-gray-400">• ${review.subject}</span>` : ''}
+                    <div>
+                        <span class="font-medium text-gray-800">${review.name}</span>
+                        ${review.location ? `<span class="text-gray-500"> • ${review.location}</span>` : ''}
                     </div>
-                    <span class="text-blue-500 text-xs">
-                        <i class="fas fa-check-circle mr-1"></i>Vérifié
-                    </span>
+                    ${review.vehicle_rented ? `<span class="text-blue-600 font-medium">${review.vehicle_rented}</span>` : ''}
                 </div>
             </div>
         `;
@@ -287,6 +285,44 @@ class LocalReviewsManager {
         samples.forEach(sample => this.storeReview(sample));
         this.displayStoredReviews();
         console.log('Sample reviews added');
+    }
+
+    // Close the review form
+    closeReviewForm() {
+        const form = document.getElementById('review-form');
+        const btn = document.getElementById('toggle-review-btn');
+        
+        if (form && !form.classList.contains('hidden')) {
+            form.classList.add('hidden');
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-plus mr-2"></i>Laisser un avis';
+            }
+        }
+    }
+
+    // Show success message
+    showSuccessMessage() {
+        const existingMessage = document.getElementById('review-success-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
+        const message = document.createElement('div');
+        message.id = 'review-success-message';
+        message.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        message.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                Merci pour votre témoignage! Il a été ajouté avec succès.
+            </div>
+        `;
+
+        document.body.appendChild(message);
+
+        // Remove message after 5 seconds
+        setTimeout(() => {
+            message.remove();
+        }, 5000);
     }
 }
 
